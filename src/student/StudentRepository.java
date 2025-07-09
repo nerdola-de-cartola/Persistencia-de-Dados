@@ -1,7 +1,12 @@
+package student;
+
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import com.j256.ormlite.table.TableUtils;
+
+import controller.Database;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;

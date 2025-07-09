@@ -1,9 +1,14 @@
+package teacher;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-/**
- * This class represents a Teacher entity mapped to the "teachers" table in the database.
- */
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
+
+@XmlRootElement(name = "student")
+@XmlAccessorType(XmlAccessType.FIELD)
 @DatabaseTable(tableName = "teachers")
 public class Teacher {
 
@@ -24,16 +29,13 @@ public class Teacher {
     private int yearsOfExperience;
 
     // ORMLite requires a no-argument constructor
-    public Teacher() {
-    }
+    public Teacher() {}
 
     public Teacher(String name, String subject, int yearsOfExperience) {
         this.name = name;
         this.subject = subject;
         this.yearsOfExperience = yearsOfExperience;
     }
-
-    // Getters and setters
 
     public int getId() {
         return id;
