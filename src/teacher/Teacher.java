@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 
-@XmlRootElement(name = "student")
+@XmlRootElement(name = "teacher")
 @XmlAccessorType(XmlAccessType.FIELD)
 @DatabaseTable(tableName = "teachers")
 public class Teacher {
@@ -73,5 +73,9 @@ public class Teacher {
                ", subject='" + subject + '\'' +
                ", yearsOfExperience=" + yearsOfExperience +
                '}';
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

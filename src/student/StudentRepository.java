@@ -46,9 +46,12 @@ public class StudentRepository
         return student;
     }    
 
-    public void update(Student student) {
+    public void update(Student student) throws Exception {
         try {
-            dao.update(student);
+            int updatedRows = dao.update(student);
+            if (updatedRows != 1) {
+                throw new Exception("Failed to update student" + student);
+            }
         } catch (SQLException e) {
             System.out.println("Update error: " + e.getMessage());
         }

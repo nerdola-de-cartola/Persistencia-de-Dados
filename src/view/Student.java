@@ -1,7 +1,6 @@
 package view;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javafx.beans.property.SimpleIntegerProperty;
