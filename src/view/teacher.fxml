@@ -37,7 +37,7 @@
                         <Button fx:id="deletarButton" disable="true" layoutX="313.0" layoutY="214.0" mnemonicParsing="false" onAction="#onDeletarButtonAction" text="Deletar" />
                         <Button fx:id="cancelarButton" disable="true" layoutX="382.0" layoutY="214.0" mnemonicParsing="false" onAction="#onCancelarButtonAction" text="Cancelar" />
                         <Button fx:id="salvarButton" disable="true" layoutX="457.0" layoutY="214.0" mnemonicParsing="false" onAction="#onSalvarButtonAction" text="Salvar" />
-                        <Label layoutX="266.0" layoutY="8.0" text="Cadastro de Estudante">
+                        <Label layoutX="266.0" layoutY="8.0" text="Cadastro de Professor">
                             <font>
                                 <Font size="19.0" />
                             </font>

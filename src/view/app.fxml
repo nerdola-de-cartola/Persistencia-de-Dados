@@ -77,6 +77,15 @@
                 <Tab closable="false" text="Professor">
                   <fx:include source="teacher.fxml" />
                 </Tab>
+                <Tab fx:id="tabDisciplina" text="Disciplina">
+                  <fx:include source="disciplina.fxml" />
+                </Tab>
+                <Tab fx:id="tabTurma" text="Turma">
+                  <fx:include source="turma.fxml" />
+                </Tab>
+                <Tab fx:id="tabMatricula" text="Matrícula">
+                  <fx:include source="matricula.fxml" />
+                </Tab>
               </tabs>
             </TabPane>
          </children>

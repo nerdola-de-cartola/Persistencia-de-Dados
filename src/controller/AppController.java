@@ -1,6 +1,8 @@
 package controller;
 
 import javafx.fxml.Initializable;
+import model.Database;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import view.AppView;
@@ -8,13 +10,13 @@ import view.AppView;
 public class AppController implements Initializable {    
     AppView appView;
 
-    private static controller.Database database = new controller.Database("app.sqlite");
+    private static model.Database database = new Database("app.sqlite");
         
     public AppController() {
         this.appView = new AppView();
     }
 
-    public static controller.Database getDatabase() {
+    public static model.Database getDatabase() {
         return AppController.database;
     }
 
@@ -24,8 +26,5 @@ public class AppController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'initialize'");
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 }

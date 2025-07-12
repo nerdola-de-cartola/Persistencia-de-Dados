@@ -1,4 +1,6 @@
-package teacher;
+package model;
+
+
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -9,7 +11,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 
 @XmlRootElement(name = "teacher")
 @XmlAccessorType(XmlAccessType.FIELD)
-@DatabaseTable(tableName = "teachers")
+@DatabaseTable(tableName = "teacher")
 public class Teacher {
 
     // Primary key with auto-generated ID
@@ -67,12 +69,7 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return "Teacher{" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               ", subject='" + subject + '\'' +
-               ", yearsOfExperience=" + yearsOfExperience +
-               '}';
+        return name;
     }
 
     public void setId(int id) {

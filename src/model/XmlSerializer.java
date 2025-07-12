@@ -1,29 +1,31 @@
-package student;
+package model;
+
 
 import javax.xml.bind.*;
 import java.io.StringWriter;
 import java.io.StringReader;
 
-public class StudentXmlSerializer
-{
-    private JAXBContext context;
+public class XmlSerializer<T> {
+    private final JAXBContext context;
+    private final Class<T> type;
 
-    public StudentXmlSerializer() throws JAXBException {
-        context = JAXBContext.newInstance(Student.class);
+    public XmlSerializer(Class<T> type) throws JAXBException {
+        this.type = type;
+        this.context = JAXBContext.newInstance(type);
     }
 
-    public String toXml(Student student) throws JAXBException {
+    public String toXml(T object) throws JAXBException {
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter sw = new StringWriter();
-        marshaller.marshal(student, sw);
+        marshaller.marshal(object, sw);
         return sw.toString();
     }
 
-    public Student fromXml(String xml) throws JAXBException {
+    public T fromXml(String xml) throws JAXBException {
         Unmarshaller unmarshaller = context.createUnmarshaller();
         StringReader sr = new StringReader(xml);
-        return (Student) unmarshaller.unmarshal(sr);
+        return type.cast(unmarshaller.unmarshal(sr));
     }
 
     public static void main(String[] args) throws Exception {
@@ -33,7 +35,7 @@ public class StudentXmlSerializer
         student.setRegistration(123);
         student.setBirthday(new java.util.Date());
 
-        StudentXmlSerializer serializer = new StudentXmlSerializer();
+        XmlSerializer<Student> serializer = new XmlSerializer<>(Student.class);
         String xml = serializer.toXml(student);
         System.out.println("XML gerado:\n" + xml);
 

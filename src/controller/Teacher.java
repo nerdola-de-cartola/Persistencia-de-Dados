@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Repositorio;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -55,8 +56,8 @@ public class Teacher implements Initializable {
     boolean isUpdating = false;
     boolean isCreating = false;
 
-    private static teacher.TeacherRepository teacherRepo =
-        new teacher.TeacherRepository(AppController.getDatabase());
+    private static Repositorio<model.Teacher, Integer> teacherRepo =
+        new Repositorio<model.Teacher, Integer>(AppController.getDatabase(), model.Teacher.class);
 
     public Teacher() {}
 
@@ -111,7 +112,7 @@ public class Teacher implements Initializable {
     @FXML
     public void onSalvarButtonAction() {
         try {
-            teacher.Teacher teacher = new teacher.Teacher();
+            model.Teacher teacher = new model.Teacher();
             teacher.setName(nameField.getText());
             teacher.setSubject(subjectField.getText());
             teacher.setYearsOfExperience(Integer.parseInt(yearsOfExperienceField.getText()));
@@ -124,7 +125,7 @@ public class Teacher implements Initializable {
                 teacherView = modelToView(teacher);
                 tabela.getItems().set(tabela.getItems().indexOf(selectedTeacher), teacherView);
             } else {
-                teacher.Teacher savedTeacher = teacherRepo.create(teacher);
+                model.Teacher savedTeacher = teacherRepo.create(teacher);
                 teacherView = modelToView(savedTeacher);
                 tabela.getItems().add(teacherView);
             }
@@ -165,7 +166,7 @@ public class Teacher implements Initializable {
     @FXML
     public void onDeletarButtonAction() {
         try {
-            var teacher = new teacher.Teacher();
+            var teacher = new model.Teacher();
             int id = Integer.parseInt(idField.getText());
             teacher.setId(id);
             teacherRepo.delete(teacher);
@@ -206,7 +207,7 @@ public class Teacher implements Initializable {
             });
     }
 
-    private view.Teacher modelToView(teacher.Teacher teacher) {
+    private view.Teacher modelToView(model.Teacher teacher) {
         return new view.Teacher(
             teacher.getId(),
             teacher.getName(),
@@ -217,8 +218,8 @@ public class Teacher implements Initializable {
 
     private ObservableList<view.Teacher> loadAllTeachers() {
         ObservableList<view.Teacher> lista = FXCollections.observableArrayList();
-        List<teacher.Teacher> listaFromDatabase = teacherRepo.loadAll();
-        for (teacher.Teacher teacher : listaFromDatabase) {
+        List<model.Teacher> listaFromDatabase = teacherRepo.loadAll();
+        for (model.Teacher teacher : listaFromDatabase) {
             lista.add(modelToView(teacher));
         }
         return lista;

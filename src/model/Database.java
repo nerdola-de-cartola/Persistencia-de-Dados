@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.sql.*;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;

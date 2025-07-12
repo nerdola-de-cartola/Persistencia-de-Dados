@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Repositorio;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -55,8 +56,8 @@ public class Student implements Initializable {
     boolean isUpdating = false;
     boolean isCreating = false;
 
-    private static student.StudentRepository StudentRepo = 
-        new student.StudentRepository(AppController.getDatabase());
+    private static Repositorio<model.Student, Integer> StudentRepo = 
+        new Repositorio<model.Student, Integer>(AppController.getDatabase(), model.Student.class);
         
     public Student() {}
 
@@ -112,7 +113,7 @@ public class Student implements Initializable {
     @FXML
     public void onSalvarButtonAction() {
         try {
-            student.Student Student = new student.Student();            
+            model.Student Student = new model.Student();            
             Student.setRegistration(Integer.parseInt(matriculaField.getText()));
             Student.setFullName(nomeCompletoField.getText());
             Student.setBirthday(sdf.parse(dataDeNascimentoField.getText()));
@@ -124,7 +125,7 @@ public class Student implements Initializable {
                 studentView = modelToView(Student);
                 tabela.getItems().set(tabela.getItems().indexOf(selectedStudent), studentView);
             } else {
-                student.Student savedStudent = StudentRepo.create(Student); 
+                model.Student savedStudent = StudentRepo.create(Student); 
                 studentView = modelToView(savedStudent);
                 tabela.getItems().add(studentView);
             }
@@ -166,7 +167,7 @@ public class Student implements Initializable {
     @FXML
     public void onDeletarButtonAction() {
         try {
-            var student = new student.Student();
+            var student = new model.Student();
             int id = Integer.parseInt(idField.getText());
             student.setId(id);
             //student.setBirthday(sdf.parse(dataDeNascimentoField.getText()));
@@ -213,7 +214,7 @@ public class Student implements Initializable {
             });
     }
     
-    private view.Student modelToView(student.Student Student) {
+    private view.Student modelToView(model.Student Student) {
         return new view.Student(
             Student.getId(),
             Student.getFullName(),
@@ -225,8 +226,8 @@ public class Student implements Initializable {
     private ObservableList<view.Student> loadAllStudents() {
         ObservableList<view.Student> lista = 
             FXCollections.observableArrayList();
-        List<student.Student> listaFromDatabase = StudentRepo.loadAll();
-        for(student.Student Student: listaFromDatabase) {
+        List<model.Student> listaFromDatabase = StudentRepo.loadAll();
+        for(model.Student Student: listaFromDatabase) {
             lista.add(modelToView(Student));
         }
         return lista;
