@@ -80,18 +80,13 @@ public class Turma {
         this.teacher = teacher;
     }
 
+    public boolean possoMatricular() {
+        return alunosMatriculados < vagasDisponiveis;
+    }
+
     @Override
     public String toString() {
         return "Turma [id=" + id + ", codigo=" + codigo + ", disciplina=" + disciplina + ", teacher=" + teacher
                 + ", alunosMatriculados=" + alunosMatriculados + ", vagasDisponiveis=" + vagasDisponiveis + "]";
     }
-
-    public void matricular(Matricula matricula) throws Exception {
-        if (alunosMatriculados >= vagasDisponiveis) {
-            throw new Exception("Nao há mais vagas disponíveis");
-        }
-
-        alunosMatriculados++;
-    }
-
 }

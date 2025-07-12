@@ -14,10 +14,26 @@ public enum StatusMatricula {
 
     @Override
     public String toString() {
-        return label;
+        if (this == StatusMatricula.CONFIRMADA) {
+            return "Confirmada";
+        } else if (this == StatusMatricula.SOLICITADA) {
+            return "Solicitada";
+        }
+
+        return "Cancelada";
     }
 
     public boolean isBlank() {
         return label.isBlank();
+    }
+
+    static public StatusMatricula createMatricula(String s) {
+        if (s.equals("CONFIRMADA")) {
+            return StatusMatricula.CONFIRMADA;
+        } else if (s.equals("SOLICITADA")) {
+            return StatusMatricula.SOLICITADA;
+        }
+
+        return StatusMatricula.CANCELADA;
     }
 }

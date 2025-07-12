@@ -21,20 +21,21 @@ public class Matricula {
 
     public Matricula() {}
 
-    public Matricula(int id, String nomeEstudante, int idEstudante, String codigoTurma, int idTurma, String status) throws Exception {
+    public Matricula(int id, String nomeEstudante, int idEstudante, Turma turma, StatusMatricula status) {
         var estudante =  new Student();
         estudante.setId(idEstudante);
         estudante.setFullName(nomeEstudante);
 
-        var turma = new Turma();
-        turma.setCodigo(codigoTurma);
-        turma.setId(idTurma);
-
         this.id = id;
         this.estudante = estudante;
         this.turma = turma;
-        this.turma.matricular(this);
-        this.status = StatusMatricula.CONFIRMADA;
+        this.status = status;
+
+        // if (status == StatusMatricula.CONFIRMADA) {
+        //     if (!turma.possoMatricular()) {
+        //         this.status = StatusMatricula.SOLICITADA;
+        //     }
+        // }
     }
 
     /**GET Method Propertie id*/

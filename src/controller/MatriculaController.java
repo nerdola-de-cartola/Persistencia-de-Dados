@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import model.Turma;
+import model.TurmaRepositorio;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class MatriculaController extends AbstractCrudController<model.Matricula,
 
     private static final Repositorio<Matricula, Integer> matriculaRepo = model.Repositorios.MATRICULA;
     private static final Repositorio<Student, Integer> estudanteRepo = model.Repositorios.ESTUDANTE;
-    private static final Repositorio<Turma, Integer> turmaRepo = model.Repositorios.TURMA;
+    private static final TurmaRepositorio turmaRepo = model.Repositorios.TURMA;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -121,13 +122,15 @@ public class MatriculaController extends AbstractCrudController<model.Matricula,
 
     @Override
     protected Matricula modelToView(Matricula m) {
+        model.Turma turma = turmaRepo.loadFromId(m.getTurma().getId());
+        StatusMatricula status = m.getStatus();
+
         return new Matricula(
             m.getId(),
             m.getEstudante() != null ? m.getEstudante().getFullName() : "",
             m.getEstudante() != null ? m.getEstudante().getId() : 0,
-            m.getTurma() != null ? m.getTurma().getCodigo() : "",
-            m.getTurma() != null ? m.getTurma().getId() : 0,
-            m.getStatus() != null ? m.getStatus().name() : ""
+            turma,
+            status
         );
     }
 
@@ -137,6 +140,13 @@ public class MatriculaController extends AbstractCrudController<model.Matricula,
         m.setEstudante(estudanteComboBox.getValue());
         m.setTurma(turmaComboBox.getValue());
         m.setStatus(statusComboBox.getValue());
+
+        if (m.getStatus() == StatusMatricula.CONFIRMADA) {
+            if (!m.getTurma().possoMatricular()) {
+                m.setStatus(StatusMatricula.SOLICITADA);
+            }
+        }
+
         return m;
     }
 

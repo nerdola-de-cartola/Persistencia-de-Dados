@@ -156,15 +156,6 @@ public class TurmaController extends AbstractCrudController<model.Turma, Turma, 
         t.setVagasDisponiveis(vagas);
 
         //alunosMatriculados é derivado
-        try {
-            System.out.println("oi");
-            int a = turmaRepo.contarAlunosMatriculadosNaTurma(t);
-            System.out.println("tchal");
-            t.setAlunosMatriculados(a);
-        } catch (SQLException e) {
-            System.out.println(e);
-            return t;
-        }
 
         return t;
     }

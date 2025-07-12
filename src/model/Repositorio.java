@@ -22,8 +22,8 @@ public class Repositorio<T, ID> {
         this.dao = dao;
     }
 
-    private List<T> loadedEntities;
-    private T loadedEntity;
+    protected List<T> loadedEntities;
+    protected T loadedEntity;
     private Class<T> entityClass;
 
     public Repositorio(Database database, Class<T> entityClass) {
